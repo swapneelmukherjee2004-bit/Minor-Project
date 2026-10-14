@@ -66,3 +66,16 @@ There is deliberately **no login system** (academic prototype). Audit IDs are un
 
 ## Official references
 [WCAG 2.2](https://www.w3.org/TR/WCAG22/) · [Quick Reference](https://www.w3.org/WAI/WCAG22/quickref/) · [WAI evaluation overview](https://www.w3.org/WAI/test-evaluate/) · [axe-core](https://github.com/dequelabs/axe-core) · axe-core is MPL-2.0 (`backend/app/assets/AXE_LICENSE.txt`).
+
+## Deploy on Railway (not tested on Railway by the author)
+Three services in one Railway project, all from this GitHub repo:
+
+1. **PostgreSQL**: *New → Database → PostgreSQL*.
+2. **backend**: *New → GitHub Repo*, root directory = repo root. Variables:
+   `RAILWAY_DOCKERFILE_PATH=backend/Dockerfile`, `DATABASE_URL=${{Postgres.DATABASE_URL}}`, `HOST=::` (needed for Railway private networking),
+   `CORS_ORIGINS=https://<your-frontend-domain>` (not required if the frontend proxies `/api`, but harmless), optional `AI_PROVIDER/AI_MODEL/AI_API_KEY`.
+   Give it 1 GB+ RAM (Chromium). No public domain is required.
+3. **frontend**: *New → GitHub Repo*, root directory = repo root. Variables: `RAILWAY_DOCKERFILE_PATH=frontend/Dockerfile`,
+   `BACKEND_URL=http://${{backend.RAILWAY_PRIVATE_DOMAIN}}:8000`. Generate a public domain for this service: that URL is the app.
+
+Because there is no login, protect the public URL (Railway doesn't add auth) or only share it with trusted people.
