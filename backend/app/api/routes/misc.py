@@ -33,7 +33,8 @@ def settings_status():
             "limits": {"navigation_timeout_ms": s.nav_timeout_ms, "max_requests_per_page": s.max_requests_per_page,
                        "max_screenshot_height_px": s.max_screenshot_height, "max_concurrent_audits": s.max_concurrent_audits,
                        "audit_rate_limit": s.rate_limit_audits},
-            "local_fixtures_enabled": bool(s.fixture_origin_set)}
+            "local_fixtures_enabled": bool(s.fixture_origin_set),
+            "fixture_origin": sorted(s.fixture_origin_set)[0] if s.fixture_origin_set else None}
 
 
 @router.get("/dashboard/summary", tags=["dashboard"])

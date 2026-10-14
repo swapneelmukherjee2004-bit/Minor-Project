@@ -42,7 +42,7 @@ def _dataset_info(db: Session, ds: EvalDataset) -> dict:
         by_cat[a.category] = by_cat.get(a.category, 0) + 1
     return {"name": ds.name, "version": ds.version, "description": ds.description, "annotation_protocol": ds.annotation_protocol,
             "n_pages": len(ds.cases), "n_annotations": len(anns), "pages_by_condition": by_cond, "annotations_by_category": by_cat,
-            "pages": [{"page_id": c.page_id, "condition": c.condition, "description": c.description, "n_annotations": len(c.annotations)}
+            "pages": [{"page_id": c.page_id, "fixture_file": c.fixture_file, "condition": c.condition, "description": c.description, "n_annotations": len(c.annotations)}
                       for c in ds.cases]}
 
 
