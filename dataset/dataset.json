@@ -1,0 +1,313 @@
+{
+  "name": "accessaudit-fixtures",
+  "version": "1.0",
+  "description": "Controlled, locally hosted HTML fixtures: accessible baselines, deliberately injected single-defect pages and one hand-written naturalistic-style page. EXPLORATORY: small and synthetic; results do not generalise to real websites.",
+  "annotation_protocol": "Each annotation names the affected element (canonical selector), a category, an optional WCAG 2.2 criterion and a rationale. Defects were injected by the author, so labels exist before any tool is run. Only intended defects are annotated; baseline pages have no annotations. Annotators: 1 (the author). No second reviewer yet, so inter-annotator agreement is NOT available.",
+  "cases": [
+    {
+      "page_id": "baseline-article",
+      "condition": "baseline",
+      "fixture_file": "baseline-article.html",
+      "description": "Accessible article with described figure and descriptive links.",
+      "annotations": []
+    },
+    {
+      "page_id": "baseline-form",
+      "condition": "baseline",
+      "fixture_file": "baseline-form.html",
+      "description": "Accessible contact form with labels, hint and a descriptive button.",
+      "annotations": []
+    },
+    {
+      "page_id": "baseline-landing",
+      "condition": "baseline",
+      "fixture_file": "baseline-landing.html",
+      "description": "Accessible landing page with described images and a descriptive call to action.",
+      "annotations": []
+    },
+    {
+      "page_id": "img-missing-alt",
+      "condition": "injected",
+      "fixture_file": "img-missing-alt.html",
+      "description": "Informative image without any alt attribute.",
+      "annotations": [
+        {
+          "annotation_id": "img-missing-alt-1",
+          "category": "images",
+          "target_selector": "#team-photo",
+          "issue_type": "missing_alt",
+          "criterion": "1.1.1",
+          "rationale": "img has no alt attribute and conveys information about the team.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        }
+      ]
+    },
+    {
+      "page_id": "img-vague-alt",
+      "condition": "injected",
+      "fixture_file": "img-vague-alt.html",
+      "description": "Alt text exists but is a placeholder / non-descriptive.",
+      "annotations": [
+        {
+          "annotation_id": "img-vague-alt-1",
+          "category": "images",
+          "target_selector": "#revenue-chart",
+          "issue_type": "vague_alt",
+          "criterion": "1.1.1",
+          "rationale": "alt 'graphic' does not convey the chart's content, which the caption shows is revenue by region.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        },
+        {
+          "annotation_id": "img-vague-alt-2",
+          "category": "images",
+          "target_selector": "#hero-photo",
+          "issue_type": "filename_alt",
+          "criterion": "1.1.1",
+          "rationale": "alt is a camera file name, not a description.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        }
+      ]
+    },
+    {
+      "page_id": "img-context-mismatch",
+      "condition": "injected",
+      "fixture_file": "img-context-mismatch.html",
+      "description": "Alt text is fluent but contradicts the caption.",
+      "annotations": [
+        {
+          "annotation_id": "img-context-mismatch-1",
+          "category": "images",
+          "target_selector": "#results-chart",
+          "issue_type": "alt_contradicts_context",
+          "criterion": "1.1.1",
+          "rationale": "alt describes a person; the figure is a revenue chart per its caption.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        }
+      ]
+    },
+    {
+      "page_id": "nav-generic-links",
+      "condition": "injected",
+      "fixture_file": "nav-generic-links.html",
+      "description": "Links whose text is meaningless out of context.",
+      "annotations": [
+        {
+          "annotation_id": "nav-generic-links-1",
+          "category": "navigation",
+          "target_selector": "#pricing-link",
+          "issue_type": "generic_link_text",
+          "criterion": "2.4.4",
+          "rationale": "'Click here' gives no destination information when read out of context.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        },
+        {
+          "annotation_id": "nav-generic-links-2",
+          "category": "navigation",
+          "target_selector": "#news-link",
+          "issue_type": "generic_link_text",
+          "criterion": "2.4.4",
+          "rationale": "'Read more' is not distinguishable from other 'Read more' links.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        }
+      ]
+    },
+    {
+      "page_id": "form-no-label",
+      "condition": "injected",
+      "fixture_file": "form-no-label.html",
+      "description": "Text field with no label, placeholder or name.",
+      "annotations": [
+        {
+          "annotation_id": "form-no-label-1",
+          "category": "forms",
+          "target_selector": "#email",
+          "issue_type": "missing_label",
+          "criterion": "3.3.2",
+          "rationale": "The field has no programmatic or visible label.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        }
+      ]
+    },
+    {
+      "page_id": "form-placeholder-only",
+      "condition": "injected",
+      "fixture_file": "form-placeholder-only.html",
+      "description": "Field labelled only by placeholder text.",
+      "annotations": [
+        {
+          "annotation_id": "form-placeholder-only-1",
+          "category": "forms",
+          "target_selector": "#search-q",
+          "issue_type": "placeholder_as_label",
+          "criterion": "3.3.2",
+          "rationale": "The only label is a placeholder, which disappears on input and is unreliable as a name.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        }
+      ]
+    },
+    {
+      "page_id": "contrast-low",
+      "condition": "injected",
+      "fixture_file": "contrast-low.html",
+      "description": "Light grey text on white.",
+      "annotations": [
+        {
+          "annotation_id": "contrast-low-1",
+          "category": "contrast",
+          "target_selector": "#fine-print",
+          "issue_type": "low_contrast_text",
+          "criterion": "1.4.3",
+          "rationale": "#b5b5b5 on #ffffff is about 2.1:1, below the 4.5:1 minimum.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        }
+      ]
+    },
+    {
+      "page_id": "semantics-fake-heading",
+      "condition": "injected",
+      "fixture_file": "semantics-fake-heading.html",
+      "description": "A section title is a styled div, not a heading.",
+      "annotations": [
+        {
+          "annotation_id": "semantics-fake-heading-1",
+          "category": "semantics",
+          "target_selector": "#section-title",
+          "issue_type": "visual_heading_without_semantics",
+          "criterion": "1.3.1",
+          "rationale": "Large bold text acts as a heading visually but exposes no heading semantics.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        }
+      ]
+    },
+    {
+      "page_id": "button-label-mismatch",
+      "condition": "injected",
+      "fixture_file": "button-label-mismatch.html",
+      "description": "Visible button label differs from its accessible name.",
+      "annotations": [
+        {
+          "annotation_id": "button-label-mismatch-1",
+          "category": "semantics",
+          "target_selector": "#search-btn",
+          "issue_type": "label_in_name",
+          "criterion": "2.5.3",
+          "rationale": "Visible text 'Search' is not part of the accessible name 'Submit form'.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        }
+      ]
+    },
+    {
+      "page_id": "heading-skip",
+      "condition": "injected",
+      "fixture_file": "heading-skip.html",
+      "description": "Heading levels jump from h1 to h4.",
+      "annotations": [
+        {
+          "annotation_id": "heading-skip-1",
+          "category": "semantics",
+          "target_selector": "#skipped",
+          "issue_type": "heading_level_skip",
+          "criterion": "1.3.1",
+          "rationale": "h4 follows h1 with no intermediate levels.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        }
+      ]
+    },
+    {
+      "page_id": "lang-missing",
+      "condition": "injected",
+      "fixture_file": "lang-missing.html",
+      "description": "Document has no lang attribute.",
+      "annotations": [
+        {
+          "annotation_id": "lang-missing-1",
+          "category": "semantics",
+          "target_selector": "html",
+          "issue_type": "missing_lang",
+          "criterion": "3.1.1",
+          "rationale": "<html> has no lang attribute.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        }
+      ]
+    },
+    {
+      "page_id": "title-missing",
+      "condition": "injected",
+      "fixture_file": "title-missing.html",
+      "description": "Document has no <title>.",
+      "annotations": [
+        {
+          "annotation_id": "title-missing-1",
+          "category": "semantics",
+          "target_selector": "html",
+          "issue_type": "missing_title",
+          "criterion": "2.4.2",
+          "rationale": "The document has no <title>.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        }
+      ]
+    },
+    {
+      "page_id": "mixed-blog",
+      "condition": "naturalistic_style",
+      "fixture_file": "mixed-blog.html",
+      "description": "Hand-written blog post imitating real-world mixed defects (NOT a scraped real page).",
+      "annotations": [
+        {
+          "annotation_id": "mixed-blog-1",
+          "category": "contrast",
+          "target_selector": "#post-meta",
+          "issue_type": "low_contrast_text",
+          "criterion": "1.4.3",
+          "rationale": "#aaa on white is about 2.3:1.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        },
+        {
+          "annotation_id": "mixed-blog-2",
+          "category": "images",
+          "target_selector": "#blog-hero",
+          "issue_type": "vague_alt",
+          "criterion": "1.1.1",
+          "rationale": "alt 'photo' says nothing about the image.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        },
+        {
+          "annotation_id": "mixed-blog-3",
+          "category": "navigation",
+          "target_selector": "#src-link",
+          "issue_type": "generic_link_text",
+          "criterion": "2.4.4",
+          "rationale": "'here' is meaningless out of context.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        },
+        {
+          "annotation_id": "mixed-blog-4",
+          "category": "forms",
+          "target_selector": "#comment-box",
+          "issue_type": "missing_label",
+          "criterion": "3.3.2",
+          "rationale": "textarea has no label.",
+          "provenance": "Injected by the dataset author (single annotator) before any tool was run; established by construction.",
+          "second_reviewer_label": null
+        }
+      ]
+    }
+  ]
+}
