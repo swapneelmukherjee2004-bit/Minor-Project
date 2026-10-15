@@ -68,7 +68,7 @@ class BrowserService:
                 viewport={"width": self.s.viewport_width, "height": self.s.viewport_height},
                 accept_downloads=False, bypass_csp=True, java_script_enabled=True,
                 service_workers="block", permissions=[], ignore_https_errors=False,
-                user_agent="AccessAudit/1.0 (accessibility research tool)",
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
             )
             ctx.set_default_timeout(self.s.nav_timeout_ms)
 
@@ -104,7 +104,7 @@ class BrowserService:
             await ctx.route("**/*", guard)
             page = await ctx.new_page()
             try:
-                resp = await page.goto(url, wait_until="load", timeout=self.s.nav_timeout_ms)
+                resp = await page.goto(url, wait_until="domcontentloaded", timeout=self.s.nav_timeout_ms)
             except Exception as e:  # playwright Error / TimeoutError
                 msg = str(e)
                 if counter["blocked"]:
@@ -119,7 +119,11 @@ class BrowserService:
                     raise AuditError("The site's TLS certificate could not be verified.") from e
                 raise AuditError("The page could not be loaded (connection failed or refused).") from e
             try:
-                await page.wait_for_load_state("networkidle", timeout=5000)
+                await page.wait_for_load_state("load", timeout=8000)
+            except Exception:
+                pass  # bounded wait; don't fail if streaming or tracking subresources keep loading
+            try:
+                await page.wait_for_load_state("networkidle", timeout=3000)
             except Exception:
                 pass  # bounded wait; pages with long-polling never go idle
             status = resp.status if resp else None
