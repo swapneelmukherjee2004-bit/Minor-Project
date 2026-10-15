@@ -3,6 +3,7 @@ import { BarChart3, FlaskConical, History, LayoutDashboard, Menu, PlusCircle, Se
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { useSettings } from "@/hooks/queries";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const NAV = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -28,8 +29,9 @@ export default function AppLayout() {
             {open ? <X className="h-5 w-5" aria-hidden /> : <Menu className="h-5 w-5" aria-hidden />}
           </button>
           <Link to="/" className="flex items-center gap-2 font-bold"><BarChart3 className="h-5 w-5 text-brand" aria-hidden />AccessAudit</Link>
-          <div className="ml-auto flex items-center gap-2 text-xs">
+          <div className="ml-auto flex items-center gap-3 text-xs">
             {settings.data?.demo_mode && <span className="rounded-full border border-warn/50 bg-warn/10 px-2 py-1 font-medium text-warn">Demo mode: AI is a mock</span>}
+            <ThemeToggle />
           </div>
         </div>
       </header>

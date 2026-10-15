@@ -4,10 +4,11 @@ import type { ReactElement } from "react";
 import { MemoryRouter } from "react-router-dom";
 import { vi } from "vitest";
 import { ToastProvider } from "@/components/ui";
+import { ThemeProvider } from "@/hooks/useTheme";
 
 export function renderApp(ui: ReactElement, route = "/") {
   const qc = new QueryClient({ defaultOptions: { queries: { retry: false } } });
-  return render(<QueryClientProvider client={qc}><ToastProvider><MemoryRouter initialEntries={[route]}>{ui}</MemoryRouter></ToastProvider></QueryClientProvider>);
+  return render(<QueryClientProvider client={qc}><ThemeProvider><ToastProvider><MemoryRouter initialEntries={[route]}>{ui}</MemoryRouter></ToastProvider></ThemeProvider></QueryClientProvider>);
 }
 
 type Handler = (url: string, init?: RequestInit) => { status?: number; body?: unknown } | undefined;
