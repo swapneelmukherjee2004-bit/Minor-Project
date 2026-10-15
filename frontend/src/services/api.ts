@@ -1,6 +1,9 @@
 import type { AuditDetail, AuditMode, AuditSummary, Comparison, DashboardSummary, EvalRun, EvalSummary, Finding, Paged, SettingsStatus } from "@/types/api";
 
-const BASE = (import.meta.env.VITE_API_BASE as string | undefined) ?? "/api/v1";
+const rawBase = import.meta.env.VITE_API_BASE as string | undefined;
+const BASE = (rawBase && !rawBase.includes("YOUR-RENDER-BACKEND-URL"))
+  ? rawBase
+  : "https://minor-project-v28q.onrender.com/api/v1";
 
 export class ApiError extends Error {
   constructor(public status: number, public code: string, message: string, public details?: { field: string; message: string }[]) {
