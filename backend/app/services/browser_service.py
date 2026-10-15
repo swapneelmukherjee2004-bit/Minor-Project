@@ -47,7 +47,7 @@ class BrowserService:
 
     def _launch_args(self) -> list[str]:
         args = ["--disable-extensions", "--disable-dev-shm-usage", "--no-first-run",
-                "--disable-background-networking", "--disable-sync", "--mute-audio"]
+                "--disable-background-networking", "--disable-sync", "--mute-audio", "--disable-gpu"]
         if self.s.browser_no_sandbox:
             args += ["--no-sandbox"]
         return args  # note: no --remote-debugging-port: no debugging interface is exposed
@@ -139,11 +139,15 @@ class BrowserService:
             await browser.close()
 
     async def screenshot(self, page: Page) -> tuple[bytes, int, int]:
-        h = await page.evaluate("Math.max(document.documentElement.scrollHeight, document.body ? document.body.scrollHeight : 0)")
-        height = int(min(max(h, self.s.viewport_height), self.s.max_screenshot_height))
-        data = await page.screenshot(type="png", clip={"x": 0, "y": 0, "width": self.s.viewport_width, "height": height},
-                                     full_page=True)
-        return data, self.s.viewport_width, height
+        try:
+            h = await page.evaluate("Math.max(document.documentElement.scrollHeight, document.body ? document.body.scrollHeight : 0)")
+            max_h = min(self.s.max_screenshot_height, 2400)
+            height = int(min(max(h, self.s.viewport_height), max_h))
+            data = await page.screenshot(type="png", clip={"x": 0, "y": 0, "width": self.s.viewport_width, "height": height})
+            return data, self.s.viewport_width, height
+        except Exception:
+            data = await page.screenshot(type="png")
+            return data, self.s.viewport_width, self.s.viewport_height
 
     async def extract_dom(self, page: Page) -> dict:
         return await page.evaluate(EXTRACT_JS, {"limits": DOM_LIMITS})
